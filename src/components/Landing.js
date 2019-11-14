@@ -2,6 +2,8 @@ import socket from '../api';
 import styled from 'styled-components';
 import React, {useState} from 'react';
 
+import Modal from './Modal';
+
 const Just = styled.h5`
   font-style: italic;
   font-size: 90%;
@@ -68,9 +70,9 @@ const Button = styled.button`
 `;
 
 const Landing = (props) => {
-  let[,setState] = useState();
+  let[state,setState] = useState({auth : false, error: {code: 0, msg: ''}});
 
-  async function l(e){
+  function l(e){
     e.preventDefault();
     let data = {
       name : e.target[0].value,
@@ -82,10 +84,19 @@ const Landing = (props) => {
       socket.name = data.name;
       socket.room = data.room;
       props.authorized(true);
-      setState({})
+      setState({
+        auth : true,
+        error: {code: 0, msg: ''}
+      })
     });
     socket.on('room unavailable', () => {
-      alert("You tried to enter busy room! Try another one."); 
+      setState({
+        auth: false,
+        error : {
+          code : 1, 
+          msg: "This room is full! Try another one."
+        }
+      })
     });
   }
 
@@ -99,7 +110,7 @@ const Landing = (props) => {
           <Input placeholder="Room: " data='room'></Input> 
           <Button type='submit'>Go!</Button>
         </MidSection>
-        
+        <Modal display={state.error.code !== 0}>{state.error.msg}</Modal>
       </>
     )
   }
