@@ -18,7 +18,7 @@ io.on('connection', socket => {
       else{
         socket.room = data.room;
         socket.join(data.room);
-        socket.emit('LoginSuccess');
+        socket.emit('loginSuccess');
         console.log(`A user: ${socket.name} logged in! Room: ${socket.room}`);
       }
     });

@@ -22,6 +22,9 @@ Later of course UPGRADE!
    3. make more customizable
      * buttons etc WINDOWSlike MessageBox
 
+3. APP
+   * make it work...
+
 ### SERVER
 
 1. Export event handlers to functions - make file more readable.

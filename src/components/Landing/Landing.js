@@ -2,7 +2,7 @@ import socket from '../../api';
 import React, {useState} from 'react';
 import {Just, Head, MidSection, Input, Button} from './styleds';
 import Modal from '../Modal/Modal';
-import { ConnectionError, debounce } from '../../utils';
+import { ConnectionError } from '../../utils';
 
 
 
@@ -15,9 +15,9 @@ const Landing = (props) => {
       name : e.target[0].value,
       room : e.target[1].value
     }
-    socket.emit('login', data);
+    socket.emit('userLogin', data);
 
-    socket.on('success', () => {
+    socket.on('loginSuccess', () => {
       socket.name = data.name;
       socket.room = data.room;
       props.authorized(true);
@@ -38,7 +38,7 @@ const Landing = (props) => {
       <>
         <Just>just...</Just>
         <Head>Tic tac toe</Head>
-        <MidSection onSubmit={debounce(listener, 1000)}>
+        <MidSection onSubmit={listener}>
           <Input placeholder="Your nick: " data='nick'></Input>
           <Input placeholder="Room: " data='room'></Input> 
           <Button type='submit'>Go!</Button>
