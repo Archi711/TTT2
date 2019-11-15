@@ -2,13 +2,14 @@ import socket from '../../api';
 import React, {useState} from 'react';
 import {Just, Head, MidSection, Input, Button} from './styleds';
 import Modal from '../Modal/Modal';
+import useModal from '../Modal/useModal';
 import { ConnectionError } from '../../utils';
 
 
 
 const Landing = (props) => {
-  let[state,setState] = useState({auth : false, error: new ConnectionError(0)});
-
+  const [state,setState] = useState({auth : false, error: new ConnectionError(0)});
+  const { isShowing, toggle } = useModal();
   function listener(e){
     e.preventDefault();
     let data = {
@@ -25,7 +26,8 @@ const Landing = (props) => {
         auth : true
       })
     });
-    socket.on('error', (code) => {
+    socket.on('ConnectionError', (code) => {
+      toggle();
       setState({
         auth: false,
         error : new ConnectionError(code)
@@ -43,7 +45,7 @@ const Landing = (props) => {
           <Input placeholder="Room: " data='room'></Input> 
           <Button type='submit'>Go!</Button>
         </MidSection>
-        <Modal display={state.error.code !== 0}>{state.error.msg}</Modal>
+        <Modal isShowing={isShowing} hide={toggle}>{state.error.msg}</Modal>
       </>
     )
   }

@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import Landing from '../Landing/Landing';
-import socket from '../../api';
+import { GridContainer } from './styleds';
+import GameField from '../GameField/GameField';
+import Chat from '../Chat/Chat';
+import Console from '../Console/Console';
 
 const App = (props) => {
   const [state, setState] = useState({auth : false});
@@ -8,7 +11,13 @@ const App = (props) => {
     return <Landing authorized={(a) => a ? setState({auth : true}) : false} />;
   }
   else {
-    return `You, named: ${socket.name} are logged in room ${socket.room}`;
+    return (
+      <GridContainer>
+        <GameField></GameField>
+        <Chat></Chat>
+        <Console></Console>
+      </GridContainer>
+    )
   }
 }
 

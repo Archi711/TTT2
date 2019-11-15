@@ -12,7 +12,7 @@ io.on('connection', socket => {
       console.log(`Active clients in room ${data.room} : ${clients.length}`);
       
       if(clients.length > 1){
-        socket.emit('error', 2);
+        socket.emit('ConnectionError', 2);
         console.log(`User with id: ${socket.id} tried to enter busy room!`);
       }
       else{
@@ -22,12 +22,14 @@ io.on('connection', socket => {
         console.log(`A user: ${socket.name} logged in! Room: ${socket.room}`);
       }
     });
+
    
     
     
   })
 
   socket.on("disconnect", s => {
+    socket.leaveAll();
     if(socket.name){
       console.log(`A user: ${socket.name} logged out and disconnected from server.`)
     }
