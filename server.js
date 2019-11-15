@@ -3,23 +3,22 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-
 io.on('connection', socket => {
   console.log('A user connected!');
   
-  socket.on('login', function(data){
+  socket.on('userLogin', function(data){
     socket.name = data.name;
     io.of('/').in(data.room).clients(function(error,clients){
       console.log(`Active clients in room ${data.room} : ${clients.length}`);
       
       if(clients.length > 1){
-        socket.emit('room unavailable');
+        socket.emit('error', 2);
         console.log(`User with id: ${socket.id} tried to enter busy room!`);
       }
       else{
         socket.room = data.room;
         socket.join(data.room);
-        socket.emit('success');
+        socket.emit('LoginSuccess');
         console.log(`A user: ${socket.name} logged in! Room: ${socket.room}`);
       }
     });

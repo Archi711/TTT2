@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import Landing from './Landing';
-import socket from '../api';
+import Landing from '../Landing/Landing';
+import socket from '../../api';
 
 const App = (props) => {
   const [state, setState] = useState({auth : false});

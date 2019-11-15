@@ -14,13 +14,22 @@ Later of course UPGRADE!
 ### COMPONENTS TODO
 
 1. LANDING
-   * export *styled* components make them more reusable?
-   * export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
+   * **DONE** export *styled* components make them more reusable?
+   * **!!!** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
 2. MODAL
    1. in/out 'google style' animation
    2. closing button/X
    3. make more customizable
      * buttons etc WINDOWSlike MessageBox
+
+### SERVER
+
+1. Export event handlers to functions - make file more readable.
+   * maybe make a wrapper class for events? (e.g. handler(io, socket, ?data) ?)
+
+### Problems
+
+1. How to *properly* handle socket...
 
 ### General TODO
 
