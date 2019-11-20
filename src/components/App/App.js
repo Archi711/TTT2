@@ -1,24 +1,18 @@
-import React, {useState} from 'react';
-import Landing from '../Landing/Landing';
-import { GridContainer } from './styleds';
-import GameField from '../GameField/GameField';
-import Chat from '../Chat/Chat';
-import Console from '../Console/Console';
+import React, {useReducer}from 'react';
+import { StateContext, initialState, reducer  } from '../../store/store';
+import Layout from '../Layout/Layout';
 
-const App = (props) => {
-  const [state, setState] = useState({auth : false});
-  if(!state.auth){
-    return <Landing authorized={(a) => a ? setState({auth : true}) : false} />;
-  }
-  else {
-    return (
-      <GridContainer>
-        <GameField></GameField>
-        <Chat></Chat>
-        <Console></Console>
-      </GridContainer>
-    )
-  }
+
+const App = () => {
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <StateContext.Provider value={{state, dispatch}}>
+      <Layout></Layout>
+    </StateContext.Provider>
+  )
+
 }
 
 export default App;

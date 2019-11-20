@@ -11,6 +11,8 @@ Later of course UPGRADE!
 
 ## TODOS
 
+1. **ASYNC AUTHORIZATION/STATE UPDATE IN REDUCER**
+
 ### COMPONENTS TODO
 
 1. LANDING
@@ -32,7 +34,7 @@ Later of course UPGRADE!
 
 ### Problems
 
-1. How to *properly* handle socket...
+1. How to *properly* handle socket... **DONE** USE REDUCER !
 
 ### General TODO
 

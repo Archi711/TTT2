@@ -1,41 +1,31 @@
-import socket from '../../api';
-import React, {useState} from 'react';
+import React, {useContext, useRef} from 'react';
 import {Just, Head, MidSection, Input, Button} from './styleds';
 import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
-import { ConnectionError } from '../../utils';
+import { StateContext } from '../../store/store';
+import { AUTHORIZE_REQ } from '../../store/actionTypes';
 
 
 
 const Landing = (props) => {
-  const [state,setState] = useState({auth : false, error: new ConnectionError(0)});
+
+  const store = useContext(StateContext);
   const { isShowing, toggle } = useModal();
+  let modalMessage = useRef("");
+
+
   function listener(e){
     e.preventDefault();
     let data = {
-      name : e.target[0].value,
+      name: e.target[0].value,
       room : e.target[1].value
     }
-    socket.emit('userLogin', data);
-
-    socket.on('loginSuccess', () => {
-      socket.name = data.name;
-      socket.room = data.room;
-      props.authorized(true);
-      setState({
-        auth : true
-      })
-    });
-    socket.on('ConnectionError', (code) => {
-      toggle();
-      setState({
-        auth: false,
-        error : new ConnectionError(code)
-      })
+    store.dispatch({
+      type: AUTHORIZE_REQ,
+      payload: data
     });
   }
 
-  if(socket.name == null) {
     return (
       <>
         <Just>just...</Just>
@@ -45,11 +35,9 @@ const Landing = (props) => {
           <Input placeholder="Room: " data='room'></Input> 
           <Button type='submit'>Go!</Button>
         </MidSection>
-        <Modal isShowing={isShowing} hide={toggle}>{state.error.msg}</Modal>
+        <Modal isShowing={isShowing} hide={toggle}>{modalMessage.current}</Modal>
       </>
     )
-  }
-  else return 0;
 }
 
 
