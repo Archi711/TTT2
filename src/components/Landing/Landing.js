@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react';
+import React, { useContext } from 'react';
 import {Just, Head, MidSection, Input, Button} from './styleds';
 import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
@@ -11,10 +11,9 @@ const Landing = (props) => {
 
   const store = useContext(StateContext);
   const { isShowing, toggle } = useModal();
-  let modalMessage = useRef("");
-
 
   function listener(e){
+    toggle();
     e.preventDefault();
     let data = {
       name: e.target[0].value,
@@ -35,7 +34,7 @@ const Landing = (props) => {
           <Input placeholder="Room: " data='room'></Input> 
           <Button type='submit'>Go!</Button>
         </MidSection>
-        <Modal isShowing={isShowing} hide={toggle}>{modalMessage.current}</Modal>
+        <Modal isShowing={isShowing} hide={toggle}>If nothing is happening, check your connection!</Modal>
       </>
     )
 }
