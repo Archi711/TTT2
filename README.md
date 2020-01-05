@@ -11,12 +11,9 @@ Later of course UPGRADE!
 
 ## TODOS
 
-1. **ASYNC AUTHORIZATION/STATE UPDATE IN REDUCER**
-
 ### COMPONENTS TODO
 
 1. LANDING
-   * **DONE** export *styled* components make them more reusable?
    * **!!!** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
 2. MODAL
    1. in/out 'google style' animation
@@ -34,9 +31,15 @@ Later of course UPGRADE!
 
 ### Problems
 
-1. How to *properly* handle socket... **DONE** USE REDUCER !
+1. Where should client emit his events?
 
 ### General TODO
 
 1. Make server handle game, chat, spectators, showing available lobbys.
 2. Collect data from games and make with TensorFlow TicTacToe champion AI.
+
+#### Done
+
+1. **DONE** ASYNC AUTHORIZATION/STATE UPDATE IN REDUCER
+2. How to *properly* handle socket... **DONE** USE REDUCER
+3. **DONE** export *styled* components make them more reusable?

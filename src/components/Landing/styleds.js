@@ -1,27 +1,28 @@
 import styled from 'styled-components';
+import { breakPoints } from '../../utils';
 
-export const Just = styled.h5`
+export const Just = styled.div`
   font-style: italic;
   font-size: 90%;
   text-align: center;
-  padding: .2em 1em;
-  
-  margin: .5em;
+  padding: .7em 1em;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
   font-weight: 100;
-
+  color : ${props => props.theme.fontColor2};
 `;
 export const Head = styled.h2`
   padding: .1em .5em;
-  margin: 0% 5%;
+  margin: 0% 20%;
   font-size: 10vh;
-  color : #232323;
-  border: 1px #FFF solid;
   border-radius: 5px;
-  background-color: #fff3fb;
-  color: #002b40;
+  background-color: ${props => props.theme.secondaryColor};
+  color: ${props => props.theme.fontColor};
   text-align: center;
   font-weight: 100;
-  @media (max-width: 600px){
+  @media (max-width: ${breakPoints.mobileBreakpoint}px){
+      margin: 0% 5%;
       font-size: 6vh;
       padding: .01em .2em;
   }
@@ -29,26 +30,44 @@ export const Head = styled.h2`
 
 export const MidSection = styled.form`
   margin: 5% 20%;
-  text-align: center;
-  background-color: #d0d2cc;
-  color: #894d28;
-  @media (max-width: 600px) {
+  color: ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.secondaryColor};
+  @media (max-width: ${breakPoints.mobileBreakpoint}px) {
     margin: 5% 5%;
   }
 `;
 
-export const Input = styled.input`
-  margin: 5%;
+export const Label = styled.label`
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
   width: 80%;
-  border: none;
-  font-size: 5vh;
-  padding: .4em;
-  :nth-child(2){
-    margin: 0% 5% 5%;;
+  font-size: 3vh;
+  :nth-child(1){
+    padding-top: 3%;
   }
-  @media (max-width: 600px){
+`;
+
+export const Input = styled.input`
+  margin: 3% auto;
+  width: 80%;
+  background-color: transparent;
+  color: ${props => props.theme.fontColor};
+  border: none;
+  border-bottom: 1px ${props => props.theme.fontColor} solid;
+  display: block;
+  font-size: 4vh;
+  padding: .4em;
+  :nth-child(4){
+    margin-bottom: 6%;
+  }
+  @media (max-width: ${breakPoints.mobileBreakpoint}px){
     font-size: 4vh;
-}
+  }
+  :focus{
+    outline-color: ${props => props.theme.fontColor2}
+  }
+  
 `;
 
 export const Button = styled.button`
@@ -57,11 +76,12 @@ export const Button = styled.button`
   width: 100%;
   font-size: 4vh;
   height: 3em;
-  background-color: #002b40;
-  color: #fff3fb;
+  background-color: ${props => props.theme.ndColor1};
+  border: none;
+  color: ${props => props.theme.fontColor2};
   cursor: pointer;
   :hover {
-    background-color: #001a30;
+    background-color: ${props => props.theme.ndColor2};
   }
 `;
 

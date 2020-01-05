@@ -1,4 +1,5 @@
 import React, {useReducer}from 'react';
+import { ThemeProvider } from 'styled-components';
 import { StateContext, initialState, reducer, asyncMiddleware  } from '../../store/store';
 import Layout from '../Layout/Layout';
 
@@ -9,7 +10,9 @@ const App = () => {
 
   return (
     <StateContext.Provider value={{state, dispatch : asyncMiddleware(dispatch)}}>
-      <Layout></Layout>
+      <ThemeProvider theme={state.theme}>
+        <Layout></Layout>
+      </ThemeProvider>
     </StateContext.Provider>
   )
 

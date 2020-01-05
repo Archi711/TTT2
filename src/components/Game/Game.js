@@ -8,11 +8,13 @@ const Game = () => {
 
 
   return (
+    <>
     <GridContainer>
       <GameField></GameField>
       <Chat></Chat>
       <Console></Console>
     </GridContainer>
+    </>
   )
 }
 

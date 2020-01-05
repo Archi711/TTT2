@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {Just, Head, MidSection, Input, Button} from './styleds';
+import {Just, Head, MidSection, Input, Button, Label} from './styleds';
 import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
 import { StateContext } from '../../store/store';
@@ -30,8 +30,10 @@ const Landing = (props) => {
         <Just>just...</Just>
         <Head>Tic tac toe</Head>
         <MidSection onSubmit={listener}>
-          <Input placeholder="Your nick: " data='nick'></Input>
-          <Input placeholder="Room: " data='room'></Input> 
+          <Label htmlFor="name">Your nick: </Label>
+            <Input data='name' id="name"></Input>
+          <Label htmlFor="room"> Room:</Label>
+            <Input data='room' id="room"></Input>
           <Button type='submit'>Go!</Button>
         </MidSection>
         <Modal isShowing={isShowing} hide={toggle}>If nothing is happening, check your connection!</Modal>

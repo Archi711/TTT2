@@ -43,3 +43,7 @@ export class ConnectionError{
     }
   }
 }
+
+export const breakPoints = {
+  mobileBreakpoint : 768,
+}

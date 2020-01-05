@@ -1,13 +1,10 @@
-
 import styled from 'styled-components';
 
-export const Container = styled.section`
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0 auto;
-  padding: 2em;
+export const ConsoleContainer = styled.section`
   background-color: ${props => props.theme.secondaryColor};
   color: ${props => props.theme.fontColor};
+  padding: 1vw;
+  max-height: 95%;
+  grid-column: 1 / 3;
+
 `;

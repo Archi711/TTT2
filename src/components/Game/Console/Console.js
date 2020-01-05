@@ -1,9 +1,13 @@
 
 import React from 'react';
-
+import { ConsoleContainer } from './styleds';
 
 const Console = (props) => {
-  return <div> CONSOLE </div>
+  return (
+    <ConsoleContainer>
+      Console
+    </ConsoleContainer>
+  )
 }
 
 export default Console;

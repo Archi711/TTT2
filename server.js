@@ -20,14 +20,18 @@ io.on('connection', socket => {
         socket.room = data.room;
         socket.join(data.room);
         callback('AUTHORIZE_SUCCESS');
+        socket.to(socket.room).emit("CHECK_ROOMMATES");
         console.log(`A user: ${socket.name} logged in! Room: ${socket.room}`);
       }
     });
-
-   
-    
-    
+ 
   })
+
+  socket.on("CHECK_ROOMMATES", () => {
+    socket.to(socket.room).emit("PREHANDSHAKE", socket.name);
+  })
+
+
 
   socket.on("disconnect", s => {
     socket.leaveAll();
