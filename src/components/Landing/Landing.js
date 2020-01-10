@@ -1,42 +1,55 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import {Just, Head, MidSection, Input, Button, Label} from './styleds';
 import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
-import { StateContext } from '../../store/store';
-import { AUTHORIZE_REQ } from '../../store/actionTypes';
+import JoinForm from './JoinForm';
+import CreateForm from './CreateForm';
 
 
 
 const Landing = (props) => {
+    const { isShowing, toggle } = useModal();
+    const [ errorMessage, setError ] = useState("");
+    const [ name, setName ] = useState("");
+    const [ shownForm, setShownForm ] = useState("main");
 
-  const store = useContext(StateContext);
-  const { isShowing, toggle } = useModal();
 
-  function listener(e){
-    toggle();
-    e.preventDefault();
-    let data = {
-      name: e.target[0].value,
-      room : e.target[1].value
+    const handleClick = (type) => {
+      return (e) => {
+        e.preventDefault();
+        let data = {
+          name: e.target.form[0].value,
+        }
+        if (data.name === ""){
+          setError("Check your name, and try again!");
+          if(!isShowing) toggle();
+        }
+        else {
+          setName(data.name);
+          setShownForm(type);
+        }
+      }
     }
-    store.dispatch({
-      type: AUTHORIZE_REQ,
-      payload: data
-    });
-  }
+
+    let content = 
+    <>
+      <Label htmlFor="name">Your nick: </Label>
+        <Input data='name' id="name"></Input>
+        <Button onClick={handleClick('join')} name="joinButton">Join room</Button>
+      <Button onClick={handleClick('create')}  name="createButton">Create room</Button>
+    </>;
+
+    if(shownForm !== "main")
+      content = shownForm === "join" ? <JoinForm username={name} /> : <CreateForm username={name}/>;
 
     return (
       <>
         <Just>just...</Just>
         <Head>Tic tac toe</Head>
-        <MidSection onSubmit={listener}>
-          <Label htmlFor="name">Your nick: </Label>
-            <Input data='name' id="name"></Input>
-          <Label htmlFor="room"> Room:</Label>
-            <Input data='room' id="room"></Input>
-          <Button type='submit'>Go!</Button>
+        <MidSection content={shownForm}>
+          {content}
         </MidSection>
-        <Modal isShowing={isShowing} hide={toggle}>If nothing is happening, check your connection!</Modal>
+        <Modal isShowing={isShowing} hide={toggle}>{errorMessage}</Modal>
       </>
     )
 }

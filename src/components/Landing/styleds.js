@@ -30,6 +30,24 @@ export const Head = styled.h2`
 
 export const MidSection = styled.form`
   margin: 5% 20%;
+  padding: .5em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(30px, auto);
+  grid-template-areas: ${props => {
+    if(props.content === 'main')
+      return `
+        "label label label label"
+        "textField textField textField textField"
+        "joinButton joinButton createButton createButton"
+      `
+    else if(props.content === 'join')
+    return ``;
+    else return ``;
+  }
+
+  };
+  grid-gap: .5em;
   color: ${props => props.theme.fontColor};
   background-color: ${props => props.theme.secondaryColor};
   @media (max-width: ${breakPoints.mobileBreakpoint}px) {
@@ -38,17 +56,19 @@ export const MidSection = styled.form`
 `;
 
 export const Label = styled.label`
-  display: block;
-  margin: 0 auto;
+  grid-area: label;
   font-weight: bold;
   width: 80%;
+  margin: 3% auto;
   font-size: 3vh;
-  :nth-child(1){
-    padding-top: 3%;
+  @media (max-width: ${breakPoints.mobileBreakpoint}px){
+    margin: 0 auto;
+    font-size: 2vh;
   }
 `;
 
 export const Input = styled.input`
+  grid-area: textField;
   margin: 3% auto;
   width: 80%;
   background-color: transparent;
@@ -71,17 +91,19 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  position: 'absolute';
-  bottom: 0;
-  width: 100%;
+  border-radius: 12px;
+  padding: .5em;
+  grid-area: ${props => props.name};
   font-size: 4vh;
-  height: 3em;
   background-color: ${props => props.theme.ndColor1};
   border: none;
   color: ${props => props.theme.fontColor2};
   cursor: pointer;
   :hover {
     background-color: ${props => props.theme.ndColor2};
+  }
+  @media (max-width: ${breakPoints.mobileBreakpoint}px){
+    font-size: 2.5vh;
   }
 `;
 
