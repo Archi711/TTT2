@@ -33,7 +33,6 @@ export const state = initialState;
 export function asyncMiddleware(dispatch){
   return (action) => {
     switch(action.type){
-      
       default : dispatch(action);
     }
   }

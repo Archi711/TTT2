@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {Just, Head, MidSection, Input, Button, Label} from './styleds';
 import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
-import JoinForm from './JoinForm';
-import CreateForm from './CreateForm';
+import JoinForm from './JoinForm/JoinForm';
+import CreateForm from './CreateForm/CreateForm';
 
 
 
@@ -33,10 +33,10 @@ const Landing = (props) => {
 
     let content = 
     <>
-      <Label htmlFor="name">Your nick: </Label>
+      <Label htmlFor="name">Pick your nickname: </Label>
         <Input data='name' id="name"></Input>
-        <Button onClick={handleClick('join')} name="joinButton">Join room</Button>
-      <Button onClick={handleClick('create')}  name="createButton">Create room</Button>
+        <Button onClick={handleClick('join')} name="button1">Join room</Button>
+      <Button onClick={handleClick('create')}  name="button2">Create room</Button>
     </>;
 
     if(shownForm !== "main")

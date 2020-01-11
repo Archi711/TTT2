@@ -20,10 +20,11 @@ module.exports = class RoomModel {
       this.players.push(name);
       return true;
     }
-    else {
+    else if(this.allowSpectators){
       this.spectators.push(name);
       return false;
     }
+    else return "busy";
   }
 }
 

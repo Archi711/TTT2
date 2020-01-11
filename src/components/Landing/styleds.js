@@ -32,22 +32,20 @@ export const MidSection = styled.form`
   margin: 5% 20%;
   padding: .5em;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  
   grid-auto-rows: minmax(30px, auto);
   grid-template-areas: ${props => {
     if(props.content === 'main')
       return `
         "label label label label"
         "textField textField textField textField"
-        "joinButton joinButton createButton createButton"
+        "button1 button1 button2 button2"
       `
-    else if(props.content === 'join')
-    return ``;
-    else return ``;
+    else return `"wrapper"`;
   }
 
   };
-  grid-gap: .5em;
+  grid-gap: .5rem;
   color: ${props => props.theme.fontColor};
   background-color: ${props => props.theme.secondaryColor};
   @media (max-width: ${breakPoints.mobileBreakpoint}px) {
@@ -56,13 +54,13 @@ export const MidSection = styled.form`
 `;
 
 export const Label = styled.label`
-  grid-area: label;
+  grid-area: label${props => props.index};
   font-weight: bold;
-  width: 80%;
-  margin: 3% auto;
+  padding: .5em 10% .5em 10%;
+  width: 100%;
+  margin: 0 auto;
   font-size: 3vh;
   @media (max-width: ${breakPoints.mobileBreakpoint}px){
-    margin: 0 auto;
     font-size: 2vh;
   }
 `;

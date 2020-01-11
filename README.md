@@ -14,7 +14,7 @@ Later of course UPGRADE!
 ### COMPONENTS TODO
 
 1. LANDING
-   * **!!!** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
+   * **DONE** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
 2. MODAL
    1. in/out 'google style' animation
    2. closing button/X
@@ -24,6 +24,9 @@ Later of course UPGRADE!
 3. APP
    * make it work...
 
+4. CreateForm
+   * arty switch... :<
+
 ### SERVER
 
 1. Export event handlers to functions - make file more readable.
@@ -31,7 +34,7 @@ Later of course UPGRADE!
 
 ### Problems
 
-1. Where should client emit his events?
+1. Where should client emit his events??? *not*
 
 ### General TODO
 

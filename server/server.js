@@ -35,9 +35,9 @@ io.on('connection', socket => {
 
   socket.on("JOIN_ROOM", ({username, roomname}, cb) => {
     let room = ROOMS.filter(r => r.name === roomname)[0];
-    if(room){
+    let isPlayer = room.addPlayer(username);
+    if(room && isPlayer !== 'BUSY'){
       addUser(username, room.name);
-      let isPlayer = room.addPlayer(username);
       cb({status : 0, isPlayer, room});
     }
     else {
