@@ -18,7 +18,7 @@ export const darkTheme = {
   ndColor2: "#35455D",
   fontColor: "#dbba9a",
   fontColor2: "#FFC932",
-  fontColor3: "#BBA3A8",
+  fontColor3: "#0CCF61",
 }
 
 export const initialState = {
@@ -26,6 +26,7 @@ export const initialState = {
   room : null,
   availableRooms : null,
   theme: darkTheme,
+  responseStatus : 0,
 }
 
 export const state = initialState;

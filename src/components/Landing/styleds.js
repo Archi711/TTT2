@@ -28,29 +28,26 @@ export const Head = styled.h2`
   }
 `;
 
-export const MidSection = styled.form`
+export const MidSection = styled.section`
   margin: 5% 20%;
   padding: .5em;
   display: grid;
-  
-  grid-auto-rows: minmax(30px, auto);
-  grid-template-areas: ${props => {
-    if(props.content === 'main')
-      return `
-        "label label label label"
-        "textField textField textField textField"
-        "button1 button1 button2 button2"
-      `
-    else return `"wrapper"`;
-  }
-
-  };
-  grid-gap: .5rem;
   color: ${props => props.theme.fontColor};
   background-color: ${props => props.theme.secondaryColor};
   @media (max-width: ${breakPoints.mobileBreakpoint}px) {
     margin: 5% 5%;
   }
+`;
+
+export const Wrapper = styled.form`
+  display: grid;
+  
+  grid-auto-rows: minmax(30px, auto);
+  grid-template-areas: 
+        "label label label label"
+        "textField textField textField textField"
+        "button1 button1 button2 button2";
+  grid-gap: .5rem;
 `;
 
 export const Label = styled.label`

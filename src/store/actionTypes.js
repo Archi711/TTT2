@@ -1,3 +1,3 @@
-export const AUTHORIZE_REQ = "AUTHORIZE_REQ";
-export const PREHANDSHAKE = "PREHANDSHAKE";
-export const CHECK_ROOMMATES = "CHECK_ROOMMATES";
+export const CREATE_ROOM = "CREATE_ROOM";
+export const GET_AVAILABLE_ROOMS = "GET_AVAILABLE_ROOMS";
+export const JOIN_ROOM = "JOIN_ROOM";

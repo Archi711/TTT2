@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Just, Head, MidSection, Input, Button, Label} from './styleds';
+import {Just, Head, MidSection, Input, Button, Label, Wrapper} from './styleds';
 import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
 import JoinForm from './JoinForm/JoinForm';
@@ -32,12 +32,12 @@ const Landing = (props) => {
     }
 
     let content = 
-    <>
+    <Wrapper>
       <Label htmlFor="name">Pick your nickname: </Label>
         <Input data='name' id="name"></Input>
         <Button onClick={handleClick('join')} name="button1">Join room</Button>
       <Button onClick={handleClick('create')}  name="button2">Create room</Button>
-    </>;
+    </Wrapper>;
 
     if(shownForm !== "main")
       content = shownForm === "join" ? <JoinForm username={name} /> : <CreateForm username={name}/>;
