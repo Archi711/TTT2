@@ -14,7 +14,7 @@ Later of course UPGRADE!
 ### COMPONENTS TODO
 
 1. LANDING
-   * **DONE** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
+   * w8ing for more ideas!
 2. MODAL
    1. in/out 'google style' animation
    2. closing button/X
@@ -24,8 +24,6 @@ Later of course UPGRADE!
 3. APP
    * make it work...
 
-4. CreateForm
-   * arty switch... :<
 
 ### SERVER
 
@@ -46,3 +44,5 @@ Later of course UPGRADE!
 1. **DONE** ASYNC AUTHORIZATION/STATE UPDATE IN REDUCER
 2. How to *properly* handle socket... **DONE** USE REDUCER
 3. **DONE** export *styled* components make them more reusable?
+4. **DONE** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
+5. **DONE** switch!

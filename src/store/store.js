@@ -1,5 +1,6 @@
 import React from 'react';
-//import socket from '../api';
+import { JOIN_ROOM, GET_AVAILABLE_ROOMS, CREATE_ROOM } from './actionTypes';
+import socket from '../api';
 
 export const lightTheme = {
   primaryColor: "#FFF",
@@ -29,15 +30,49 @@ export const initialState = {
   availableRooms : [],
   theme: darkTheme,
   responseStatus : 0,
+  isPlayer : null,
 }
 
-for(let a = 0; a < 15; a++) initialState.availableRooms.push({name: "Archi's", players: [1,2,3], allowSpectators: true})
+//for(let a = 0; a < 15; a++) initialState.availableRooms.push({name: "Archi's", players: [1,2,3], allowSpectators: true})
 
 export const state = initialState;
 
 export function asyncMiddleware(dispatch){
   return (action) => {
     switch(action.type){
+      case GET_AVAILABLE_ROOMS: {
+        action.payload = {};
+        socket.emit(action.type, res => {
+          action.payload.status = res.status;
+          if(!res.status){
+            action.payload.rooms = res.rooms;
+          }
+          dispatch(action);
+        })
+        break;
+      }
+      case JOIN_ROOM: {
+        
+        socket.emit(action.type, action.payload, res => {
+          action.payload.status = res.status;
+          if(!res.status){
+            action.payload.isPlayer = res.isPlayer;
+            action.payload.room = res.room;
+          }
+          dispatch(action);
+        })
+        break;
+      }
+      case CREATE_ROOM: {
+        socket.emit(action.type, action.payload, res => {
+          action.payload.status = res.status;
+          if(!res.status){
+            action.payload.room = res.room;
+          }
+          dispatch(action);
+        })
+        break;
+      }
       default : dispatch(action);
     }
   }
@@ -45,7 +80,44 @@ export function asyncMiddleware(dispatch){
 
 export const reducer = (state, action) => {
   switch(action.type){
-    
+    case GET_AVAILABLE_ROOMS: {
+      if(!action.payload.status){
+        return {
+          ...state,
+          availableRooms : action.payload.rooms,
+        }
+      }
+      else return {
+          ...state,
+          responseStatus : action.payload.status,
+      }
+    }
+    case JOIN_ROOM: {
+      if(!action.payload.status){
+        return {
+          ...state,
+          isPlayer : action.payload.isPlayer,
+          room : action.payload.room
+        }
+      }
+      else return {
+        ...state,
+        responseStatus : action.payload.status,
+      }
+    }
+    case CREATE_ROOM: {
+      if(!action.payload.status){
+        return {
+          ...state,
+          room: action.payload.room,
+          isPlayer: true,
+        }
+      }
+      else return {
+        ...state,
+        responseStatus : action.payload.status,
+      }
+    }
     default : return state;
   }
 }

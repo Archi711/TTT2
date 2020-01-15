@@ -20,9 +20,10 @@ const CreateForm = (props) => {
       store.dispatch({
         type: CREATE_ROOM,
         payload: {
+          username: props.username,
           name: e.target[0].value,
-          isPublic: e.target[1].checked,
-          allowSpectators: e.target[2].checked,
+          isPublic: !e.target[1].checked,
+          allowSpec: e.target[2].checked,
         }
       })
     }

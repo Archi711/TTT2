@@ -24,7 +24,7 @@ module.exports = class RoomModel {
       this.spectators.push(name);
       return false;
     }
-    else return "busy";
+    else return "BUSY";
   }
 }
 

@@ -6,7 +6,7 @@ export const Wrapper = styled.section`
   grid-area: RoomsTable;
   display: grid;
   grid-template-columns: minmax(50%, 75%) auto;
-  grid-template-rows: minmax(10%, 15%) minmax(60%, 80%);
+  grid-template-rows: 4rem minmax(60%, 80%);
   grid-column-gap: 5px;
   grid-row-gap: 15px;
 `;

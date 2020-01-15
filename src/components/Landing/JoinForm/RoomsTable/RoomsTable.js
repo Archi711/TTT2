@@ -1,16 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { Wrapper, Table, TableRow, TableContent, Button, Heading} from './styleds';
 
 import { StateContext } from '../../../../store/store';
+import { GET_AVAILABLE_ROOMS } from '../../../../store/actionTypes';
 
 const RoomsTable = (props) => {
   const store = useContext(StateContext);
 
+  const getAvailableRooms = e => {
+    if(e) e.preventDefault();
+    store.dispatch({
+      type: GET_AVAILABLE_ROOMS,
+    })
+  }
+
+  useEffect(getAvailableRooms, []);
   return (
     <Wrapper>
       <Heading>Available rooms</Heading>
-      <Button>Refresh</Button>
+      <Button onClick={getAvailableRooms}>Refresh</Button>
       <Table>
         <TableRow heading>
           <TableContent heading>Room Name</TableContent>
@@ -18,7 +27,7 @@ const RoomsTable = (props) => {
           <TableContent heading>Spectators</TableContent>
         </TableRow>
         {store.state.availableRooms.map(room => 
-          <TableRow key={room.name}>
+          <TableRow key={room.name} onDoubleClick={props.joinRoom(room.name)}>
             <TableContent>{room.name}</TableContent>
             <TableContent>{room.players.length}</TableContent>
             <TableContent>{room.allowSpectators ? "Yes" : "No"}</TableContent>
