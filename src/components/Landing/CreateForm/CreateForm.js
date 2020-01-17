@@ -34,9 +34,9 @@ const CreateForm = (props) => {
   }
 
   useEffect(() => {
-    if(store.responseStatus === 1)
+    if(store.state.responseStatus === 1)
     setErrorMessage("This room name is used, pick another one!");
-  }, [store.responseStatus]);
+  }, [store.state.responseStatus]);
 
   return (
     <Wrapper onSubmit={handleSubmit}>

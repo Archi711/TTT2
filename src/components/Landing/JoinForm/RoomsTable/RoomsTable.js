@@ -27,7 +27,11 @@ const RoomsTable = (props) => {
           <TableContent heading>Spectators</TableContent>
         </TableRow>
         {store.state.availableRooms.map(room => 
-          <TableRow key={room.name} onDoubleClick={props.joinRoom(room.name)}>
+          <TableRow
+            key={room.name} 
+            onDoubleClick={props.joinRoom(room.name)} 
+            available={room.players.length < 2 || room.allowSpectators}
+          >
             <TableContent>{room.name}</TableContent>
             <TableContent>{room.players.length}</TableContent>
             <TableContent>{room.allowSpectators ? "Yes" : "No"}</TableContent>

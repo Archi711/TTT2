@@ -11,7 +11,7 @@ const Layout = () => {
 
   return (
   <LayoutContainer>
-    {store.state.authorizationStatus === "AUTHORIZE_SUCCESS" ? <Game /> : <Landing />}
+    {store.state.room ? <Game /> : <Landing />}
   </LayoutContainer>
   )
   

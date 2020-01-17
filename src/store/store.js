@@ -58,6 +58,7 @@ export function asyncMiddleware(dispatch){
           if(!res.status){
             action.payload.isPlayer = res.isPlayer;
             action.payload.room = res.room;
+            action.payload.sign = res.sign;
           }
           dispatch(action);
         })
@@ -68,6 +69,7 @@ export function asyncMiddleware(dispatch){
           action.payload.status = res.status;
           if(!res.status){
             action.payload.room = res.room;
+            action.payload.sign = res.sign;
           }
           dispatch(action);
         })
@@ -97,7 +99,8 @@ export const reducer = (state, action) => {
         return {
           ...state,
           isPlayer : action.payload.isPlayer,
-          room : action.payload.room
+          room : action.payload.room,
+          
         }
       }
       else return {
@@ -111,6 +114,7 @@ export const reducer = (state, action) => {
           ...state,
           room: action.payload.room,
           isPlayer: true,
+          sign: action.payload.sign,
         }
       }
       else return {

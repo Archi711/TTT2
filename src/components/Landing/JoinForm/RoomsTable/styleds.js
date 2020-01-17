@@ -43,7 +43,7 @@ export const TableRow = styled.div`
   display: grid;
   grid-template-columns: 5fr minmax(15%,20%) minmax(15%,20%);
   &:hover{
-    background-color: ${props => !props.heading ? props.theme.secondaryBColor : 'transparent'};
+    background-color: ${props => !props.heading && props.available ? props.theme.secondaryBColor : 'transparent'};
   }
 
   @media (max-width: ${breakPoints.mobileBreakpoint}px){

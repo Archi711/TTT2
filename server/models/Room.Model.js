@@ -1,7 +1,7 @@
 
 class GameData{
   constructor(){
-    this.fields = [0,0,0,0,0,0,0,0];
+    this.fields = [0,0,0,0,0,0,0,0,0];
     this.status = "NOT_STARTED";
   }
 }
@@ -12,6 +12,7 @@ module.exports = class RoomModel {
     this.isPublic = isPublic;
     this.allowSpectators = allowSpec;
     this.players = [host];
+    this.host = host;
     this.spectators = this.allowSpectators ? [] : null;
     this.gameData = new GameData()
   }

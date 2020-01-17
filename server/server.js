@@ -6,13 +6,13 @@ const io = require('socket.io')(http);
 const User = require('./models/User.Model');
 const Room = require('./models/Room.Model');
 
-const USERS = [new User("SERVER", null, 0)];
+let USERS = [new User("SERVER", null, 0)];
 const addUser = (name, room) => {
   let user = new User (name, room, USERS.length);
   USERS.push(user);
   return user;
 }
-const ROOMS = [];
+let ROOMS = [];
 const addRoom = (name, isPublic, allowSpec, hostname) => {
   let room = new Room(name, isPublic, allowSpec, hostname);
   ROOMS.push(room);
@@ -24,10 +24,13 @@ io.on('connection', socket => {
 
   socket.on("CREATE_ROOM", ({username, name, isPublic, allowSpec}, cb) => {
     console.log("CREATE_ROOM");
-    if(ROOMS.some(r => r.name === name)){ cb(1); return };
+    if(ROOMS.some(r => r.name === name)){
+      console.log("ROOM TAKENB!!!")
+      cb({status: 1}); return;
+    };
     socket.room = addRoom(name, isPublic, allowSpec, username);
     socket.user = addUser(username, name);
-    cb({status: 0, room : socket.room});
+    cb({status: 0, room : socket.room, sign: 1});
   })
 
   socket.on("GET_AVAILABLE_ROOMS", (cb) => {
@@ -43,7 +46,7 @@ io.on('connection', socket => {
       let isPlayer = room.addPlayer(username);
       if(isPlayer === "BUSY") throw new Error();
       addUser(username, room.name);
-      cb({status : 0, isPlayer, room});
+      cb({status : 0, isPlayer, room, sign: 2});
     }
     catch{
       console.table({username: username, roomname: name, room: room});
@@ -53,8 +56,9 @@ io.on('connection', socket => {
 
   socket.on("disconnect", () => {
     if(socket.user){
-      USERS.filter(user => user !== socket.user);
-      ROOMS.filter(room => room.host !== socket.user.name);
+      USERS = USERS.filter(user => user !== socket.user);
+      ROOMS = ROOMS.filter(room => room.host !== socket.user.name);
+      
       socket.leaveAll();
     }
     else {

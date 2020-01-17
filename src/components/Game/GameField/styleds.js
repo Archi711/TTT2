@@ -13,12 +13,3 @@ export const GridContainer = styled.section`
     max-width: 100%;
   }
 `;
-export const Field = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${props => props.theme.primaryColor};
-  color: ${props => props.theme.fontColor};
-  font-size: 5rem;
-  text-align: center;
-`;
