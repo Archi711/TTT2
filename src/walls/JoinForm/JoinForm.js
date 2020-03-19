@@ -1,34 +1,47 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import RoomsTable from './RoomsTable/RoomsTable';
-import { breakPoints } from '../../../utils';
+import { breakPoints } from '../../utils';
 import { Button as templateBtn } from './RoomsTable/styleds';
-import { StateContext } from '../../../store/store';
-import { JOIN_ROOM } from '../../../store/actionTypes';
+import { StateContext } from '../../store/store';
+import { JOIN_ROOM } from '../../store/actionTypes';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const JoinForm = (props) => {
   const store = useContext(StateContext);
-
+  const history = useHistory();
   const handleSubmit = param => {
     return (e) => {
       let data = {};
-      data.username = props.username;
-      data.name = param ? param : e.target[0].value;
+      data.name = store.state.name;
+      data.roomname = param ? param : e.target[0].value;
     
       store.dispatch({
        type: JOIN_ROOM,
         payload: data,
+      }).then(p => {
+        history.push(`/game/${data.roomname}`);
+      }).catch(e => {
+        console.error("JOIN ROOM FAILED");
       })
     } 
   }
 
   return (
-    <Wrapper onSubmit={handleSubmit()}>
+    store.state.name ? 
+    <Wrapper onSubmit={handleSubmit(false)}>
       <RoomsTable joinRoom={handleSubmit}></RoomsTable>
       <Label>Or enter name to join private room: </Label>
       <Input></Input>
       <Button type='submit'>Connect</Button>
     </Wrapper>
+    :
+    <Redirect to={{
+      pathname: "/error",
+      state: {code : 401}
+    }}
+    />
+
   )
 
 }

@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Wrapper, Table, TableRow, TableContent, Button, Heading} from './styleds';
 
-import { StateContext } from '../../../../store/store';
-import { GET_AVAILABLE_ROOMS } from '../../../../store/actionTypes';
+import { StateContext } from '../../../store/store';
+import { GET_AVAILABLE_ROOMS } from '../../../store/actionTypes';
 
 const RoomsTable = (props) => {
   const store = useContext(StateContext);
-
   const getAvailableRooms = e => {
     if(e) e.preventDefault();
     store.dispatch({
@@ -15,7 +14,7 @@ const RoomsTable = (props) => {
     })
   }
 
-  useEffect(getAvailableRooms, []);
+  //useEffect(getAvailableRooms, []);
   return (
     <Wrapper>
       <Heading>Available rooms</Heading>

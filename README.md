@@ -2,28 +2,30 @@
 
 a basic, too easy version of TicTacToe.
 
-TicTacToe game built using React, Socket.io.
+TicTacToe game built using:
 
-Node server with socket and games management, front end in React.
+* [react](https://www.npmjs.com/package/react)
+* [create-react-app](https://www.npmjs.com/package/create-react-app)
+* [socket.io](https://www.npmjs.com/package/socket.io)
+* [react-router-dom](https://www.npmjs.com/package/react-router-dom)
+
+Node server with socket and games management, frontend in React.
 
 I want to make as simple as possible.
 Later of course UPGRADE!
 
 ## TODOS
 
-### COMPONENTS TODO
+1. Better authentication when manually "typing" routes
+2. saving and retrieving app state from local/sessionStorage
 
-1. LANDING
-   * w8ing for more ideas!
-2. MODAL
+### COMPONENTS TO
+
+1. MODAL
    1. in/out 'google style' animation
    2. closing button/X
    3. make more customizable
      * buttons etc WINDOWSlike MessageBox
-
-3. APP
-   * make it work...
-
 
 ### SERVER
 
@@ -31,8 +33,6 @@ Later of course UPGRADE!
    * maybe make a wrapper class for events? (e.g. handler(io, socket, ?data) ?)
 
 ### Problems
-
-1. Where should client emit his events??? *not*
 
 ### General TODO
 
@@ -45,4 +45,4 @@ Later of course UPGRADE!
 2. How to *properly* handle socket... **DONE** USE REDUCER
 3. **DONE** export *styled* components make them more reusable?
 4. **DONE** export validation to other file etc. make it more **proper** (error class, room validation, nick validation)
-5. **DONE** switch!
+5. **DONE** switch

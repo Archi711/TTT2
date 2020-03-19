@@ -1,31 +1,29 @@
 
-class GameData{
-  constructor(){
-    this.fields = [0,0,0,0,0,0,0,0,0];
-    this.status = "NOT_STARTED";
-  }
-}
 
 module.exports = class RoomModel {
-  constructor(name, isPublic, allowSpec, host){
+  constructor(name, isPublic, allowSpec, id){
     this.name = name;
     this.isPublic = isPublic;
     this.allowSpectators = allowSpec;
-    this.players = [host];
-    this.host = host;
+    this.players = [];
     this.spectators = this.allowSpectators ? [] : null;
-    this.gameData = new GameData()
+    this.fieldStatus = [0,0,0,0,0,0,0,0,0];
+    this.id = id;
   }
-  addPlayer(name){
+  addPlayer(user){
     if(this.players.length < 2){
-      this.players.push(name);
+      this.players.push(user);
       return true;
     }
     else if(this.allowSpectators){
-      this.spectators.push(name);
+      this.spectators.push(user);
       return false;
     }
-    else return "BUSY";
+    else throw new Error("Room is unavailable");
+  }
+  leave(userid){
+    this.players = this.players.filter(user => user.id !== userid);
+    return this.players.length === 0;
   }
 }
 

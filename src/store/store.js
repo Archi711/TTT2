@@ -1,6 +1,6 @@
 import React from 'react';
-import { JOIN_ROOM, GET_AVAILABLE_ROOMS, CREATE_ROOM } from './actionTypes';
-import socket from '../api';
+import { JOIN_ROOM, GET_AVAILABLE_ROOMS, CREATE_ROOM, UPDATE_DATA_PING, CHANGE_NAME, LOAD_OLD_STATE } from './actionTypes';
+import { socket } from '../api';
 
 export const lightTheme = {
   primaryColor: "#FFF",
@@ -43,37 +43,47 @@ export function asyncMiddleware(dispatch){
       case GET_AVAILABLE_ROOMS: {
         action.payload = {};
         socket.emit(action.type, res => {
-          action.payload.status = res.status;
+          action.payload.responseStatus = res.status;
           if(!res.status){
-            action.payload.rooms = res.rooms;
+            action.payload.availableRooms = res.rooms;
           }
           dispatch(action);
         })
         break;
       }
+      case LOAD_OLD_STATE: 
       case JOIN_ROOM: {
-        
-        socket.emit(action.type, action.payload, res => {
-          action.payload.status = res.status;
-          if(!res.status){
-            action.payload.isPlayer = res.isPlayer;
-            action.payload.room = res.room;
-            action.payload.sign = res.sign;
-          }
-          dispatch(action);
+        return new Promise((resolve, reject) => {
+          socket.emit(action.type, action.payload, res => {
+            action.payload = {
+              name : action.payload.name
+            }
+            action.payload.responseStatus = res.status;
+            if(!res.status){
+              socket.emit(UPDATE_DATA_PING, { room : res.room });
+              action.payload.room = res.room;
+              resolve();
+            }
+            else reject();
+            dispatch(action);
+          })
         })
-        break;
       }
       case CREATE_ROOM: {
-        socket.emit(action.type, action.payload, res => {
-          action.payload.status = res.status;
-          if(!res.status){
-            action.payload.room = res.room;
-            action.payload.sign = res.sign;
-          }
-          dispatch(action);
+        return new Promise((resolve, reject) => {
+          socket.emit(action.type, action.payload, res => {
+            action.payload = {
+              name : action.payload.name
+            }
+            action.payload.responseStatus = res.status;
+            if(!res.status){
+              action.payload.room = res.room;
+              resolve();
+            }
+            else reject();
+            dispatch(action);
+          })
         })
-        break;
       }
       default : dispatch(action);
     }
@@ -81,50 +91,22 @@ export function asyncMiddleware(dispatch){
 }
 
 export const reducer = (state, action) => {
+
   switch(action.type){
-    case GET_AVAILABLE_ROOMS: {
-      if(!action.payload.status){
+    case LOAD_OLD_STATE:
+    case CHANGE_NAME:
+    case GET_AVAILABLE_ROOMS:
+    case CREATE_ROOM :
+    case UPDATE_DATA_PING:
+    case JOIN_ROOM :  {
         return {
           ...state,
-          availableRooms : action.payload.rooms,
+          ...action.payload
         }
-      }
-      else return {
-          ...state,
-          responseStatus : action.payload.status,
-      }
-    }
-    case JOIN_ROOM: {
-      if(!action.payload.status){
-        return {
-          ...state,
-          isPlayer : action.payload.isPlayer,
-          room : action.payload.room,
-          
-        }
-      }
-      else return {
-        ...state,
-        responseStatus : action.payload.status,
-      }
-    }
-    case CREATE_ROOM: {
-      if(!action.payload.status){
-        return {
-          ...state,
-          room: action.payload.room,
-          isPlayer: true,
-          sign: action.payload.sign,
-        }
-      }
-      else return {
-        ...state,
-        responseStatus : action.payload.status,
-      }
     }
     default : return state;
   }
 }
 
-
 export const StateContext = React.createContext();
+

@@ -1,3 +1,6 @@
 export const CREATE_ROOM = "CREATE_ROOM";
 export const GET_AVAILABLE_ROOMS = "GET_AVAILABLE_ROOMS";
 export const JOIN_ROOM = "JOIN_ROOM";
+export const UPDATE_DATA_PING = "UPDATE_DATA_PING"
+export const CHANGE_NAME = "CHANGE_NAME";
+export const LOAD_OLD_STATE = "LOAD_OLD_STATE";

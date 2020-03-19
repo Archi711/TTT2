@@ -1,30 +1,32 @@
 import React, { useState, useContext, useEffect } from 'react';
-
+import { Redirect, useHistory } from 'react-router-dom';
 import { Wrapper } from './styleds';
-import { Label, Input, Button } from '../styleds';
+import { Label, Input, Button } from '../../bricks/common';
 import Switch from './Switch';
-import useModal from '../../Modal/useModal';
-import Modal from '../../Modal/Modal';
-import { CREATE_ROOM } from '../../../store/actionTypes';
-import { StateContext } from '../../../store/store';
+import  { Modal, useModal } from '../../components/Modal/Modal';
+import { CREATE_ROOM } from '../../store/actionTypes';
+import { StateContext } from '../../store/store';
 
 const CreateForm = (props) => {
   const {isShowing, toggle} = useModal(false);
   const [errorMessage, setErrorMessage] = useState("");
   const store = useContext(StateContext);
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.persist();
-    console.log(e);
+    let data = {
+        name: store.state.name,
+        roomname: e.target[0].value,
+        isPublic: !e.target[1].checked,
+        allowSpec: e.target[2].checked,
+    }
     if(e.target[0].value){
       store.dispatch({
         type: CREATE_ROOM,
-        payload: {
-          username: props.username,
-          name: e.target[0].value,
-          isPublic: !e.target[1].checked,
-          allowSpec: e.target[2].checked,
-        }
+        payload: data,
+      }).then(p => {
+        history.push(`/game/${data.roomname}`);
       })
     }
     else {
@@ -39,6 +41,7 @@ const CreateForm = (props) => {
   }, [store.state.responseStatus]);
 
   return (
+    store.state.name ? 
     <Wrapper onSubmit={handleSubmit}>
       <Label>Room name: </Label>
       <Input></Input>
@@ -49,6 +52,12 @@ const CreateForm = (props) => {
       <Button name="button1" type='submit'>Go!</Button>
       <Modal isShowing={isShowing} hide={toggle}>{errorMessage}</Modal>
     </Wrapper>
+    :
+    <Redirect to={{
+      pathname: "/error",
+      state: {code : 401}
+    }}
+    />
   )
 }
 

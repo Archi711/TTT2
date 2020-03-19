@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { StateContext } from '../../../store/store';
+import { StateContext } from '../../store/store';
 
 
 const Field = props => {
@@ -12,7 +12,7 @@ const Field = props => {
     return e => {
       if(value) return;
       if(isHover){
-        let sign = store.state.sign === 1 ? 'x' : 'o'; 
+        let sign = store.state.room.players[0].name === store.state.name ? 'x' : 'o'; 
         setSign(sign);
       }
       else {
@@ -27,7 +27,7 @@ const Field = props => {
   }
 
   useEffect(()=>{
-    setSign(value)
+    if(value) setSign(value)
   }, [value])
 
   return (

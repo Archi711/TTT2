@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakPoints } from '../../../../utils';
+import { breakPoints } from '../../../utils';
 
 
 export const Wrapper = styled.section`
